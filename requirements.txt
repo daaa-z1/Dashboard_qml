@@ -1,0 +1,5 @@
+PyQt5==5.15.4
+PyQtChart==5.15.4
+reportlab==3.6.6
+labjack-unified==0.0.5
+pyserial==3.5
