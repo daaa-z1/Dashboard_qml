@@ -21,7 +21,7 @@ import random
 import math
 
 try:
-    from labjack_unified.devices import LabJackU6
+    from LabJackPython import u6
 except:
     print("Driver error", '''The driver could not be imported.
 Please install the UD driver (Windows) or Exodriver (Linux and Mac OS X) from www.labjack.com''')
@@ -57,7 +57,7 @@ class MainWindow(QObject):
     # Text String
     textField = ""
 
-    d = LabJackU6()
+    d = u6.U6()
 
 	# inisialisasi MainWindow
     def __init__(self, parent=None):
