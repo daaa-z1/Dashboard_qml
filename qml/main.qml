@@ -191,11 +191,13 @@ Window {
                     anchors.leftMargin: 70
                     anchors.topMargin: 0
 
-                    DragHandler {
-                        onActiveChanged: if (active) {
-                                             mainWindow.startSystemMove()
-                                             internal.ifMaximizedWindowRestore()
-                                         }
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.SizeAllCursor
+                        onClicked: {
+                            mainWindow.startSystemMove()
+                            internal.ifMaximizedWindowRestore()
+                        }
                     }
 
                     Image {
@@ -708,7 +710,6 @@ Window {
                         anchors.top: parent.top
                         anchors.leftMargin: 10
                         anchors.topMargin: 35
-                        //model: backend.get_port_list_info()
                         font.pointSize: 10
                         font.bold: true
                         property var nameserial_port: "COM_X"
@@ -721,15 +722,6 @@ Window {
                         }
                         onCurrentIndexChanged: {
                             serial_portX.state = "changePort"
-                            //console.debug("test "+nameserial_port)
-                        }
-                        onActivated: {
-
-                            //console.debug("hi PORT actived "+ serial_port.nameserial_port)
-                        }
-                        Component.onCompleted: {
-
-                            //console.debug("hi PORT completed "+ serial_port.nameserial_port)
                         }
                     }
 
