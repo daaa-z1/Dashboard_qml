@@ -1,6 +1,5 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
-import QtGraphicalEffects 1.15
 
 Button {
     id: button
@@ -37,8 +36,3 @@ Button {
         radius: 0
     }
 }
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:40;width:200}
-}
-##^##*/

@@ -36,9 +36,3 @@ TextField {
     selectionColor: "#ff007f"
     placeholderTextColor: "#81848c"
 }
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:40;width:640}
-}
-##^##*/
