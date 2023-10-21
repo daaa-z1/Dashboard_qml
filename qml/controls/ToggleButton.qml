@@ -44,6 +44,7 @@ Button {
     }
 
     onClicked: {
-        iconBtn.color = internal.clicked ? btnColorClicked : "#ffffff"; // Ganti warna ikon saat diklik
+        iconBtn.visible = !internal.clicked;
+        bgBtn.color = internal.clicked ? btnColorClicked : btnColorDefault;
     }
 }
