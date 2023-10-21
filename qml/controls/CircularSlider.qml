@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ************************************************************************************/
 
-import QtQuick 2.14
-import QtQuick.Controls 2.14
+import QtQuick 2.11
+import QtQuick.Controls 2.4
 import QtQuick.Shapes 1.14
 import QtQml 2.14
 

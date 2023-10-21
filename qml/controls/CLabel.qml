@@ -23,8 +23,8 @@ BAIK DALAM TINDAKAN KONTRAK, TORT, ATAU SEBALIKNYA, YANG TIMBUL DARI ATAU SEBAGA
 AKIBAT PENGGUNAAN ATAU PENGOPERASIAN PERANGKAT LUNAK INI.
 ************************************************************************************/
 
-import QtQuick 2.14
-import QtQuick.Controls 2.14
+import QtQuick 2.11
+import QtQuick.Controls 2.4
 
 Label {
     color: "#FEFEFE"
