@@ -5,8 +5,6 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Extras.Private 1.0
 
-import QtQuick 2.14
-import QtQuick.Controls 2.14
 import QtQuick.Dialogs 1.3
 import QtQuick.Layouts 1.14
 import QtQuick.Shapes 1.14
@@ -104,18 +102,7 @@ Item {
 						onPaint: {
 							var ctx = getContext("2d");
 							ctx.reset();
-							/*
-							ctx.beginPath();
-							ctx.strokeStyle = "#ff8000";
-							ctx.lineWidth = outerRadius * 0.1;
-							ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-							ctx.stroke();
-							ctx.beginPath();
-							ctx.strokeStyle = "#ffff00";
-							ctx.lineWidth = outerRadius * 0.05;
-							ctx.arc(outerRadius, outerRadius, 0.75*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-							ctx.stroke();
-							*/
+
 							ctx.beginPath();
 							ctx.strokeStyle = "#f0f0f0";
 							ctx.lineWidth = outerRadius * 0.02;
@@ -133,7 +120,7 @@ Item {
 
 					
 					tickmark: Rectangle {
-						visible: true // styleData.value > 0  //|| styleData.value % 20 == 0  // styleData.value < 3 || 
+						visible: true 
 						implicitWidth: outerRadius * 0.03
 						antialiasing: true
 						implicitHeight: outerRadius * 0.05
@@ -142,7 +129,7 @@ Item {
 					
 
 					minorTickmark: Rectangle {
-						visible: true //styleData.value > 0 //styleData.value < 20  //|| styleData.value % 1 == 0
+						visible: true
 						implicitWidth: outerRadius * 0.05
 						antialiasing: true
 						implicitHeight: outerRadius * 0.07
@@ -151,13 +138,13 @@ Item {
 					}
 
 					tickmarkLabel:  Text {
-						visible: true //styleData.value > 0
+						visible: true
 						font.pixelSize: Math.max(6, outerRadius * 0.12)
 						text: styleData.value
 						color: styleData.value <= 40 ? "#e0e0e0" : "#e0e0e0"
 						antialiasing: true
 					}
-					//#################
+					
 					needle: Canvas {
 						property real needleBaseWidth: 10
 						property real needleLength: outerRadius
@@ -177,12 +164,10 @@ Item {
 							ctx.moveTo(xCenter, height-needleShort);
 							ctx.lineTo(xCenter - needleBaseWidth / 2, (height-needleShort) - needleBaseWidth / 2);
 							ctx.lineTo(xCenter - needleTipWidth / 2, 0);
-							//ctx.lineTo(xCenter, yCenter - needleLength-needleShort);
 							ctx.lineTo(xCenter, 0);
 							ctx.closePath();
 							ctx.fillStyle = Qt.rgba(0, 0.9, 0, 0.9);
 							ctx.fill();
-
 							
 							ctx.beginPath();
 							ctx.moveTo(xCenter, height-needleShort)
@@ -195,7 +180,7 @@ Item {
 							
 						}
 					}
-					//##################
+
 					foreground: Item {
 						Rectangle {
 						}
@@ -206,7 +191,6 @@ Item {
 					id:rectsg4
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter 
-					//y: 220
 					width: 0.35*gauge4.width
 					height: 0.13*gauge4.width
 					color: "#00000000"
@@ -229,7 +213,6 @@ Item {
 					id:rectsg4a
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter 
-					//y: 220
 					width: 0.26*gauge4.width
 					height: 0.13*gauge4.width
 					color: "#00000000"
@@ -335,38 +318,13 @@ Item {
 					
 						onPaint: {
 							var ctx = getContext("2d");
-							ctx.reset();
-							/*
-							ctx.beginPath();
-							ctx.strokeStyle = "#ff8000";
-							ctx.lineWidth = outerRadius * 0.1;
-							ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-							ctx.stroke();
-							ctx.beginPath();
-							ctx.strokeStyle = "#ffff00";
-							ctx.lineWidth = outerRadius * 0.05;
-							ctx.arc(outerRadius, outerRadius, 0.75*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-							ctx.stroke();
-							
-							ctx.beginPath();
-							ctx.strokeStyle = "#f0f0f0";
-							ctx.lineWidth = outerRadius * 0.03;
-							ctx.arc(outerRadius, outerRadius, 1*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(gauge3.maximumValue) - 90));
-							ctx.stroke();
-							
-							ctx.beginPath();
-							ctx.strokeStyle = "#f0f0f0";
-							ctx.lineWidth = outerRadius * 0.03;
-							ctx.arc(outerRadius, outerRadius, 0.67*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(gauge3.maximumValue) - 90));
-							ctx.stroke();
-							*/
-							
+							ctx.reset();	
 						}
 					}
 
 					
 					tickmark: Rectangle {
-						visible: true //styleData.value >= 0  //|| styleData.value % 20 == 0  // styleData.value < 3 || 
+						visible: true 
 						implicitWidth: outerRadius * 0.03
 						antialiasing: true
 						implicitHeight: outerRadius * 0.2
@@ -375,7 +333,7 @@ Item {
 					
 
 					minorTickmark: Rectangle {
-						visible: true //styleData.value > 0 //styleData.value < 20  //|| styleData.value % 1 == 0
+						visible: true 
 						implicitWidth: outerRadius * 0.01
 						antialiasing: true
 						implicitHeight: outerRadius * 0.1
@@ -383,7 +341,7 @@ Item {
 					}
 
 					tickmarkLabel:  Text {
-						visible: true //styleData.value >= 0
+						visible: true
 						font.pixelSize: Math.max(6, outerRadius * 0.15)
 						text: styleData.value
 						color: styleData.value <= 40 ? "#e0e0e0" : "#e0e0e0"
@@ -409,7 +367,6 @@ Item {
 							ctx.moveTo(xCenter, height-needleShort);
 							ctx.lineTo(xCenter - needleBaseWidth / 2, (height-needleShort) - needleBaseWidth / 2);
 							ctx.lineTo(xCenter - needleTipWidth / 2, 0);
-							//ctx.lineTo(xCenter, yCenter - needleLength-needleShort);
 							ctx.lineTo(xCenter, 0);
 							ctx.closePath();
 							ctx.fillStyle = Qt.rgba(0, 0.9, 0, 0.9);
@@ -427,16 +384,7 @@ Item {
 							
 						}
 					}
-					//##################
-					/*
-					needle: Rectangle {
-						y: outerRadius * -0.3
-						implicitWidth: outerRadius * 0.05
-						implicitHeight: outerRadius * 0.7
-						antialiasing: true
-						color: "#00ff00"
-					}
-					*/
+
 					foreground: Item {
 						Rectangle {
 						}
@@ -447,7 +395,6 @@ Item {
 					id:rectsg5
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter 
-					//y: 220
 					width: 0.35*gauge5.width
 					height: 0.13*gauge5.width
 					color: "#00000000"
@@ -470,7 +417,6 @@ Item {
 					id:rectsg5a
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter 
-					//y: 220
 					width: 0.26*gauge5.width
 					height: 0.13*gauge5.width
 					color: "#00000000"
@@ -495,7 +441,6 @@ Item {
 			}
 		
 		}
-		/////////////////
 		Rectangle {
 			id:rect6
 			width: 220
@@ -577,18 +522,7 @@ Item {
 						onPaint: {
 							var ctx = getContext("2d");
 							ctx.reset();
-							/*
-							ctx.beginPath();
-							ctx.strokeStyle = "#ff8000";
-							ctx.lineWidth = outerRadius * 0.1;
-							ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-							ctx.stroke();
-							ctx.beginPath();
-							ctx.strokeStyle = "#ffff00";
-							ctx.lineWidth = outerRadius * 0.05;
-							ctx.arc(outerRadius, outerRadius, 0.75*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-							ctx.stroke();
-							*/
+
 							ctx.beginPath();
 							ctx.strokeStyle = "#f0f0f0";
 							ctx.lineWidth = outerRadius * 0.02;
@@ -606,7 +540,7 @@ Item {
 
 					
 					tickmark: Rectangle {
-						visible: true //styleData.value > 0  //|| styleData.value % 20 == 0  // styleData.value < 3 || 
+						visible: true
 						implicitWidth: outerRadius * 0.03
 						antialiasing: true
 						implicitHeight: outerRadius * 0.05
@@ -615,7 +549,7 @@ Item {
 					
 
 					minorTickmark: Rectangle {
-						visible: true //styleData.value > 0 //styleData.value < 20  //|| styleData.value % 1 == 0
+						visible: true
 						implicitWidth: outerRadius * 0.05
 						antialiasing: true
 						implicitHeight: outerRadius * 0.07
@@ -624,7 +558,7 @@ Item {
 					}
 
 					tickmarkLabel:  Text {
-						visible: true //styleData.value > 0
+						visible: true
 						font.pixelSize: Math.max(6, outerRadius * 0.12)
 						text: styleData.value
 						color: styleData.value <= 40 ? "#e0e0e0" : "#e0e0e0"
@@ -650,7 +584,6 @@ Item {
 							ctx.moveTo(xCenter, height-needleShort);
 							ctx.lineTo(xCenter - needleBaseWidth / 2, (height-needleShort) - needleBaseWidth / 2);
 							ctx.lineTo(xCenter - needleTipWidth / 2, 0);
-							//ctx.lineTo(xCenter, yCenter - needleLength-needleShort);
 							ctx.lineTo(xCenter, 0);
 							ctx.closePath();
 							ctx.fillStyle = Qt.rgba(0, 0.9, 0, 0.9);
@@ -679,7 +612,6 @@ Item {
 					id:rectsg6
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter 
-					//y: 220
 					width: 0.35*gauge6.width
 					height: 0.13*gauge6.width
 					color: "#00000000"
@@ -702,7 +634,6 @@ Item {
 					id:rectsg6a
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter 
-					//y: 220
 					width: 0.26*gauge6.width
 					height: 0.13*gauge6.width
 					color: "#00000000"
@@ -727,8 +658,6 @@ Item {
 			}
 		
 		}
-		
-		
 		////////////////
 		Rectangle {
 			id:rect8
@@ -811,31 +740,6 @@ Item {
 						onPaint: {
 							var ctx = getContext("2d");
 							ctx.reset();
-							/*
-							ctx.beginPath();
-							ctx.strokeStyle = "#ff8000";
-							ctx.lineWidth = outerRadius * 0.1;
-							ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-							ctx.stroke();
-							ctx.beginPath();
-							ctx.strokeStyle = "#ffff00";
-							ctx.lineWidth = outerRadius * 0.05;
-							ctx.arc(outerRadius, outerRadius, 0.75*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-							ctx.stroke();
-							
-							ctx.beginPath();
-							ctx.strokeStyle = "#f0f0f0";
-							ctx.lineWidth = outerRadius * 0.03;
-							ctx.arc(outerRadius, outerRadius, 1*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(gauge3.maximumValue) - 90));
-							ctx.stroke();
-							
-							ctx.beginPath();
-							ctx.strokeStyle = "#f0f0f0";
-							ctx.lineWidth = outerRadius * 0.03;
-							ctx.arc(outerRadius, outerRadius, 0.67*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(gauge3.maximumValue) - 90));
-							ctx.stroke();
-							*/
-							
 						}
 					}
 
@@ -903,15 +807,6 @@ Item {
 						}
 					}
 					//##################
-					/*
-					needle: Rectangle {
-						y: outerRadius * -0.3
-						implicitWidth: outerRadius * 0.05
-						implicitHeight: outerRadius * 0.7
-						antialiasing: true
-						color: "#00ff00"
-					}
-					*/
 					foreground: Item {
 						Rectangle {
 						}
@@ -922,7 +817,6 @@ Item {
 					id:rectsg8
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter 
-					//y: 220
 					width: 0.35*gauge8.width
 					height: 0.13*gauge8.width
 					color: "#00000000"
@@ -945,7 +839,6 @@ Item {
 					id:rectsg8a
 					anchors.horizontalCenter: parent.horizontalCenter
 					anchors.verticalCenter: parent.verticalCenter 
-					//y: 220
 					width: 0.26*gauge8.width
 					height: 0.13*gauge8.width
 					color: "#00000000"
@@ -970,7 +863,6 @@ Item {
 			}
 		
 		}
-
 	////////////////
 	Rectangle {
 		id:rect13
@@ -1053,18 +945,7 @@ Item {
 					onPaint: {
 						var ctx = getContext("2d");
 						ctx.reset();
-						/*
-						ctx.beginPath();
-						ctx.strokeStyle = "#ff8000";
-						ctx.lineWidth = outerRadius * 0.1;
-						ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-						ctx.stroke();
-						ctx.beginPath();
-						ctx.strokeStyle = "#ffff00";
-						ctx.lineWidth = outerRadius * 0.05;
-						ctx.arc(outerRadius, outerRadius, 0.75*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-						ctx.stroke();
-						*/
+
 						ctx.beginPath();
 						ctx.strokeStyle = "#f0f0f0";
 						ctx.lineWidth = outerRadius * 0.02;
@@ -1082,7 +963,7 @@ Item {
 
 				
 				tickmark: Rectangle {
-					visible: true //styleData.value > 0  //|| styleData.value % 20 == 0  // styleData.value < 3 || 
+					visible: true
 					implicitWidth: outerRadius * 0.03
 					antialiasing: true
 					implicitHeight: outerRadius * 0.05
@@ -1091,7 +972,7 @@ Item {
 				
 
 				minorTickmark: Rectangle {
-					visible: true // styleData.value > 0 //styleData.value < 20  //|| styleData.value % 1 == 0
+					visible: true
 					implicitWidth: outerRadius * 0.05
 					antialiasing: true
 					implicitHeight: outerRadius * 0.07
@@ -1100,7 +981,7 @@ Item {
 				}
 
 				tickmarkLabel:  Text {
-					visible: true //styleData.value > 0
+					visible: true
 					font.pixelSize: Math.max(6, outerRadius * 0.12)
 					text: styleData.value
 					color: styleData.value <= 40 ? "#e0e0e0" : "#e0e0e0"
@@ -1126,12 +1007,10 @@ Item {
 						ctx.moveTo(xCenter, height-needleShort);
 						ctx.lineTo(xCenter - needleBaseWidth / 2, (height-needleShort) - needleBaseWidth / 2);
 						ctx.lineTo(xCenter - needleTipWidth / 2, 0);
-						//ctx.lineTo(xCenter, yCenter - needleLength-needleShort);
 						ctx.lineTo(xCenter, 0);
 						ctx.closePath();
 						ctx.fillStyle = Qt.rgba(0, 0.9, 0, 0.9);
 						ctx.fill();
-
 						
 						ctx.beginPath();
 						ctx.moveTo(xCenter, height-needleShort)
@@ -1141,7 +1020,6 @@ Item {
 						ctx.closePath();
 						ctx.fillStyle = Qt.lighter(Qt.rgba(0, 0.7, 0, 0.9));
 						ctx.fill();
-						
 					}
 				}
 				//##################
@@ -1155,7 +1033,6 @@ Item {
 				id:rectsg13
 				anchors.horizontalCenter: parent.horizontalCenter
 				anchors.verticalCenter: parent.verticalCenter 
-				//y: 220
 				width: 0.35*gauge13.width
 				height: 0.13*gauge13.width
 				color: "#00000000"
@@ -1178,7 +1055,6 @@ Item {
 				id:rectsg13a
 				anchors.horizontalCenter: parent.horizontalCenter
 				anchors.verticalCenter: parent.verticalCenter 
-				//y: 220
 				width: 0.26*gauge13.width
 				height: 0.13*gauge13.width
 				color: "#00000000"
@@ -1203,7 +1079,6 @@ Item {
 		}
 	
 	}
-
 	////////////////
 	Rectangle {
 		id:rect9
@@ -1215,7 +1090,6 @@ Item {
         anchors.leftMargin: 30
         visible: true
         color: "#00000000"
-		
 		//###### Shader effect to provide gradient-based gauge #########
 		ShaderEffect {
 			id: shader9
@@ -1286,18 +1160,7 @@ Item {
 					onPaint: {
 						var ctx = getContext("2d");
 						ctx.reset();
-						/*
-						ctx.beginPath();
-						ctx.strokeStyle = "#ff8000";
-						ctx.lineWidth = outerRadius * 0.1;
-						ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-						ctx.stroke();
-						ctx.beginPath();
-						ctx.strokeStyle = "#ffff00";
-						ctx.lineWidth = outerRadius * 0.05;
-						ctx.arc(outerRadius, outerRadius, 0.75*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-						ctx.stroke();
-						*/
+						
 						ctx.beginPath();
 						ctx.strokeStyle = "#f0f0f0";
 						ctx.lineWidth = outerRadius * 0.02;
@@ -1315,16 +1178,15 @@ Item {
 
 				
 				tickmark: Rectangle {
-					visible: true //styleData.value > 0  //|| styleData.value % 20 == 0  // styleData.value < 3 || 
+					visible: true 
 					implicitWidth: outerRadius * 0.03
 					antialiasing: true
 					implicitHeight: outerRadius * 0.05
 					color: styleData.value <= 50 ? "#ffff00" : "#ffff00"
 				}
-				
 
 				minorTickmark: Rectangle {
-					visible: true //styleData.value > 0 //styleData.value < 20  //|| styleData.value % 1 == 0
+					visible: true
 					implicitWidth: outerRadius * 0.05
 					antialiasing: true
 					implicitHeight: outerRadius * 0.07
@@ -1333,7 +1195,7 @@ Item {
 				}
 
 				tickmarkLabel:  Text {
-					visible: true //styleData.value > 0
+					visible: true
 					font.pixelSize: Math.max(6, outerRadius * 0.12)
 					text: styleData.value
 					color: styleData.value <= 40 ? "#e0e0e0" : "#e0e0e0"
@@ -1359,7 +1221,6 @@ Item {
 						ctx.moveTo(xCenter, height-needleShort);
 						ctx.lineTo(xCenter - needleBaseWidth / 2, (height-needleShort) - needleBaseWidth / 2);
 						ctx.lineTo(xCenter - needleTipWidth / 2, 0);
-						//ctx.lineTo(xCenter, yCenter - needleLength-needleShort);
 						ctx.lineTo(xCenter, 0);
 						ctx.closePath();
 						ctx.fillStyle = Qt.rgba(0, 0.9, 0, 0.9);
@@ -1388,7 +1249,6 @@ Item {
 				id:rectsg9
 				anchors.horizontalCenter: parent.horizontalCenter
 				anchors.verticalCenter: parent.verticalCenter 
-				//y: 220
 				width: 0.35*gauge9.width
 				height: 0.13*gauge9.width
 				color: "#00000000"
@@ -1411,7 +1271,6 @@ Item {
 				id:rectsg9a
 				anchors.horizontalCenter: parent.horizontalCenter
 				anchors.verticalCenter: parent.verticalCenter 
-				//y: 220
 				width: 0.26*gauge9.width
 				height: 0.13*gauge9.width
 				color: "#00000000"
@@ -1518,31 +1377,6 @@ Item {
 					onPaint: {
 						var ctx = getContext("2d");
 						ctx.reset();
-						/*
-						ctx.beginPath();
-						ctx.strokeStyle = "#ff8000";
-						ctx.lineWidth = outerRadius * 0.1;
-						ctx.arc(outerRadius, outerRadius, outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-						ctx.stroke();
-						ctx.beginPath();
-						ctx.strokeStyle = "#ffff00";
-						ctx.lineWidth = outerRadius * 0.05;
-						ctx.arc(outerRadius, outerRadius, 0.75*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(20) - 90), degreesToRadians(valueToAngle(50) - 90));
-						ctx.stroke();
-						
-						ctx.beginPath();
-						ctx.strokeStyle = "#f0f0f0";
-						ctx.lineWidth = outerRadius * 0.03;
-						ctx.arc(outerRadius, outerRadius, 1*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(gauge3.maximumValue) - 90));
-						ctx.stroke();
-						
-						ctx.beginPath();
-						ctx.strokeStyle = "#f0f0f0";
-						ctx.lineWidth = outerRadius * 0.03;
-						ctx.arc(outerRadius, outerRadius, 0.67*outerRadius - ctx.lineWidth / 2,degreesToRadians(valueToAngle(0) - 90), degreesToRadians(valueToAngle(gauge3.maximumValue) - 90));
-						ctx.stroke();
-						*/
-						
 					}
 				}
 
