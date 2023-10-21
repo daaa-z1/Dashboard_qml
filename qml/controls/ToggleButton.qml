@@ -33,9 +33,25 @@ Button {
             height: 25
             width: 25
             fillMode: Image.PreserveAspectFit
+            visible: false
+        }
 
-            // Simulate ColorOverlay effect
+        Rectangle {
+            width: parent.width
+            height: parent.height
             color: "#e0e0e0"
+            opacity: 0.0
+            visible: parent.down
+
+            opacityMask: Rectangle {
+                width: parent.width
+                height: parent.height
+                gradient: Gradient {
+                    GradientStop { position: 0.0; color: "white" }
+                    GradientStop { position: 0.5; color: "transparent" }
+                    GradientStop { position: 1.0; color: "white" }
+                }
+            }
         }
     }
 }
