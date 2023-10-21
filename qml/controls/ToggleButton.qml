@@ -33,16 +33,9 @@ Button {
             height: 25
             width: 25
             fillMode: Image.PreserveAspectFit
-            visible: false
 
             // Simulate ColorOverlay effect
-            layer.enabled: true
-            layer.effect: OpacityMask {
-                maskSource: iconBtn
-                source: Rectangle {
-                    color: "#e0e0e0"
-                }
-            }
+            color: "#e0e0e0"
         }
     }
 }
