@@ -595,28 +595,28 @@ Window {
                         anchors.rightMargin: 0
                         cursorShape: Qt.SizeFDiagCursor
 
-                        DragHandler {
-                            target: null
-                            onActiveChanged: if (active) {
-                                                 mainWindow.startSystemResize(
-                                                             Qt.RightEdge | Qt.BottomEdge)
-                                             }
+                        MouseArea {
+                            id: resizeMouseArea
+                            anchors.fill: parent
+                            onClicked: {
+                                mainWindow.startSystemResize(Qt.RightEdge | Qt.BottomEdge);
+                            }
                         }
 
                         Image {
                             id: resizeImage
                             width: 16
                             height: 16
-                            anchors.fill: parent
+                            anchors.left: parent.left
+                            anchors.top: parent.top
                             source: "../images/svg_images/resize_icon.svg"
-                            anchors.leftMargin: 5
-                            anchors.topMargin: 5
-                            sourceSize.height: 16
                             sourceSize.width: 16
+                            sourceSize.height: 16
                             fillMode: Image.PreserveAspectFit
                             antialiasing: false
                         }
                     }
+
                 }
 
                 Rectangle {
@@ -882,11 +882,12 @@ Window {
         anchors.topMargin: 10
         cursorShape: Qt.SizeHorCursor
 
-        DragHandler {
-            target: null
-            onActiveChanged: if (active) {
-                                 mainWindow.startSystemResize(Qt.LeftEdge)
-                             }
+        MouseArea {
+            id: resizeLeftMouseArea
+            anchors.fill: parent
+            onClicked: {
+                mainWindow.startSystemResize(Qt.LeftEdge);
+            }
         }
     }
 
@@ -901,13 +902,15 @@ Window {
         anchors.topMargin: 10
         cursorShape: Qt.SizeHorCursor
 
-        DragHandler {
-            target: null
-            onActiveChanged: if (active) {
-                                 mainWindow.startSystemResize(Qt.RightEdge)
-                             }
+        MouseArea {
+            id: resizeRightMouseArea
+            anchors.fill: parent
+            onClicked: {
+                mainWindow.startSystemResize(Qt.RightEdge);
+            }
         }
     }
+
 
     MouseArea {
         id: resizeBottom
@@ -920,11 +923,12 @@ Window {
         anchors.bottomMargin: 0
         cursorShape: Qt.SizeVerCursor
 
-        DragHandler {
-            target: null
-            onActiveChanged: if (active) {
-                                 mainWindow.startSystemResize(Qt.BottomEdge)
-                             }
+        MouseArea {
+            id: resizeBottomMouseArea
+            anchors.fill: parent
+            onClicked: {
+                mainWindow.startSystemResize(Qt.BottomEdge);
+            }
         }
     }
 
