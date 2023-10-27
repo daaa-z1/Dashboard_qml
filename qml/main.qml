@@ -82,6 +82,7 @@ ApplicationWindow {
     }
 
     Rectangle {
+        id: bg
         color: "#2c313c"
         radius: 10
         border.color: "#383e4c"
@@ -90,11 +91,13 @@ ApplicationWindow {
         z: 1
 
         Rectangle {
+            id: appContainer
             color: "#00000000"
             radius: 10
             anchors.fill: parent
 
             Rectangle {
+                id: topBar
                 height: 60
                 color: "#1c1d20"
                 radius: 10
@@ -115,6 +118,7 @@ ApplicationWindow {
                     anchors.bottomMargin: 0
 
                     Label {
+                        id: labelTopInfo
                         color: "#16FF00"
                         text: qsTr("MONITOR SYS FOR TEST BENCH")
                         font.bold: true
@@ -125,6 +129,7 @@ ApplicationWindow {
                     }
 
                     Label {
+                        id: labelDateInfo
                         color: "#B0B0B0"
                         text: qsTr("DATE: ")
                         font.bold: true
@@ -135,6 +140,7 @@ ApplicationWindow {
                     }
 
                     Label {
+                        id: labelRightInfo
                         color: "#B0B0B0"
                         text: qsTr("| WELCOME")
                         anchors.right: parent.right
@@ -146,6 +152,7 @@ ApplicationWindow {
                 }
 
                 Rectangle {
+                    id: titleBar
                     height: 35
                     color: "#00000000"
                     anchors.fill: parent
@@ -165,6 +172,7 @@ ApplicationWindow {
                     }
 
                     Image {
+                        id: iconApp
                         width: 32
                         height: 32
                         anchors.left: parent.left
@@ -178,6 +186,7 @@ ApplicationWindow {
                     }
 
                     Label {
+                        id: label
                         color: "#3E00FF"
                         text: qsTr("TEST BENCH EXPERT by TSH corp")
                         anchors.left: iconApp.right
@@ -192,6 +201,7 @@ ApplicationWindow {
                 }
 
                 Row {
+                    id: rowBtns
                     x: 872
                     width: 220
                     height: 35
@@ -200,20 +210,22 @@ ApplicationWindow {
                     anchors.topMargin: 0
                     anchors.rightMargin: 0
 
-                    Switch {
+                    SwitchDelegate {
+                        id: control
                         text: qsTr("PM")
                         checked: false
                         font.pointSize: 14
                         height: 25
-                        topPadding: 5
+                        anchors.top: parent.top
+                        anchors.topMargin: 5
                         onClicked: animationSetComm.running = true
 
-                        label: Text {
-                            rightPadding: indicator.width + spacing
-                            text: parent.text
-                            font: parent.font
+                        contentItem: Text {
+                            rightPadding: control.indicator.width + control.spacing
+                            text: control.text
+                            font: control.font
                             opacity: enabled ? 1.0 : 0.3
-                            color: checked ? "#AEFF00" : "#AEFF00"
+                            color: control.down ? "#AEFF00" : "#AEFF00"
                             elide: Text.ElideRight
                             verticalAlignment: Text.AlignVCenter
                         }
@@ -221,25 +233,24 @@ ApplicationWindow {
                         indicator: Rectangle {
                             implicitWidth: 48
                             implicitHeight: 26
-                            x: parent.width - width - rightPadding
+                            x: control.width - width - control.rightPadding
                             y: parent.height / 2 - height / 2
                             radius: 13
-                            color: checked ? "#ffae00" : "transparent"
-                            border.color: checked ? "#ffae00" : "#cccccc"
+                            color: control.checked ? "#ffae00" : "transparent"
+                            border.color: control.checked ? "#ffae00" : "#cccccc"
 
                             Rectangle {
-                                x: checked ? parent.width - width : 0
+                                x: control.checked ? parent.width - width : 0
                                 width: 26
                                 height: 26
                                 radius: 13
-                                color: down ? "#c0c0c0" : "#f0f0f0"
+                                color: control.down ? "#c0c0c0" : "#f0f0f0"
                             }
                         }
-
                         Rectangle {
                             implicitWidth: 80
                             implicitHeight: 40
-                            visible: down || highlighted
+                            visible: control.down || control.highlighted
                             color: "#00000000"
                         }
                     }
