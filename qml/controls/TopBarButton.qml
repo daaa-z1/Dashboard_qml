@@ -1,3 +1,6 @@
+import QtQuick 2.11
+import QtQuick.Controls 2.4
+
 Button {
     id: btnTopBar
 
@@ -10,6 +13,8 @@ Button {
     background: Rectangle {
         color: btnTopBar.pressed ? btnColorClicked : (btnTopBar.hovered ? btnColorMouseOver : btnColorDefault)
         radius: 5
+        border.color: "transparent"
+        border.width: 0
         anchors.fill: parent
         anchors.margins: 4
     }
