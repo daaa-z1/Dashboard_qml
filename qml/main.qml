@@ -13,8 +13,10 @@ import "controls"
 
 ApplicationWindow {
     visible: true
-    width: Screen.primaryScreen.availableWidth // Lebar layar utama
-    height: Screen.primaryScreen.availableHeight // Tinggi layar utama
+    width: 1320
+    height: 720
+    minimumWidth: 760
+    minimumHeight: 520
     color: "#00000000"
     title: qsTr("Dash Control")
 
