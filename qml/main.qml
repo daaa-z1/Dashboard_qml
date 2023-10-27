@@ -153,8 +153,12 @@ ApplicationWindow {
                     anchors.leftMargin: 70
                     anchors.topMargin: 0
 
-                    DragHandler {
-                        onActiveChanged: if (active) {
+                    MouseArea {
+                        id: moveArea
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+
+                        onPressed: {
                             mainWindow.startSystemMove()
                             internal.ifMaximizedWindowRestore()
                         }
@@ -511,7 +515,6 @@ ApplicationWindow {
                         id: labelTopInfo2
                         color: "#B0B0B0"
                         text: qsTr(" ")
-                        anchors.left: parent.right
                         anchors.right: parent.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
@@ -536,12 +539,21 @@ ApplicationWindow {
                         anchors.rightMargin: 0
                         cursorShape: Qt.SizeFDiagCursor
 
-                        DragHandler {
-                            target: null
-                            onActiveChanged: if (active) {
-                                mainWindow.startSystemResize(
-                                    Qt.RightEdge | Qt.BottomEdge)
-                            }
+                        property real startX
+                        property real startY
+
+                        onPressed: {
+                            startX = mouse.x
+                            startY = mouse.y
+                        }
+
+                        onPositionChanged: {
+                            var deltaX = mouse.x - startX
+                            var deltaY = mouse.y - startY
+                            creditBar.x += deltaX
+                            creditBar.y += deltaY
+                            startX = mouse.x
+                            startY = mouse.y
                         }
 
                         Image {
@@ -559,6 +571,7 @@ ApplicationWindow {
                         }
                     }
                 }
+
                 Rectangle {
                     id: setComm
                     x: 851
@@ -819,11 +832,19 @@ ApplicationWindow {
         anchors.topMargin: 10
         cursorShape: Qt.SizeHorCursor
 
-        DragHandler {
-            target: null
-            onActiveChanged: if (active) {
-                mainWindow.startSystemResize(Qt.LeftEdge)
+        property real startX
+
+        onPressed: {
+            startX = mouse.x
+        }
+
+        onPositionChanged: {
+            var deltaX = mouse.x - startX
+            if (parent.width - deltaX >= 50) {
+                parent.width -= deltaX
+                parent.x += deltaX
             }
+            startX = mouse.x
         }
     }
 
@@ -838,11 +859,18 @@ ApplicationWindow {
         anchors.topMargin: 10
         cursorShape: Qt.SizeHorCursor
 
-        DragHandler {
-            target: null
-            onActiveChanged: if (active) {
-                mainWindow.startSystemResize(Qt.RightEdge)
+        property real startX
+
+        onPressed: {
+            startX = mouse.x
+        }
+
+        onPositionChanged: {
+            var deltaX = mouse.x - startX
+            if (parent.width + deltaX >= 50) {
+                parent.width += deltaX
             }
+            startX = mouse.x
         }
     }
 
@@ -857,13 +885,21 @@ ApplicationWindow {
         anchors.bottomMargin: 0
         cursorShape: Qt.SizeVerCursor
 
-        DragHandler {
-            target: null
-            onActiveChanged: if (active) {
-                mainWindow.startSystemResize(Qt.BottomEdge)
+        property real startY
+
+        onPressed: {
+            startY = mouse.y
+        }
+
+        onPositionChanged: {
+            var deltaY = mouse.y - startY
+            if (parent.height + deltaY >= 50) {
+                parent.height += deltaY
             }
+            startY = mouse.y
         }
     }
+
 
     Connections {
         target: backend
