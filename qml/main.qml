@@ -2,6 +2,7 @@ import QtQuick 2.11
 import QtQuick.Window 2.11
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.2
+import Qt.labs.platform 1.1
 
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
@@ -13,10 +14,8 @@ import "controls"
 
 ApplicationWindow {
     visible: true
-    width: 1320
-    height: 720
-    minimumWidth: 760
-    minimumHeight: 520
+    width: Screen.primaryScreen.availableWidth // Lebar layar utama
+    height: Screen.primaryScreen.availableHeight // Tinggi layar utama
     color: "#00000000"
     title: qsTr("Dash Control")
 
