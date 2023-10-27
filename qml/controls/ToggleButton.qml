@@ -11,9 +11,11 @@ Button {
     property color btnColorMouseOver: "#23272E"
     property color btnColorClicked: "#0080b0"
 
-    background: Rectangle {
+    Rectangle {
+        id: bgBtn
         color: btnToggle.pressed ? btnColorClicked : (btnToggle.hovered ? btnColorMouseOver : btnColorDefault)
         radius: 10
+        anchors.fill: parent
     }
 
     implicitWidth: 60
@@ -29,7 +31,7 @@ Button {
     }
 
     onClicked: {
-        iconBtn.visible = !internal.clicked;
-        bgBtn.color = internal.clicked ? btnColorClicked : btnColorDefault;
+        iconBtn.visible = !iconBtn.visible;
+        bgBtn.color = iconBtn.visible ? btnColorClicked : btnColorDefault;
     }
 }
