@@ -30,6 +30,5 @@ Button {
         width: 24
         fillMode: Image.PreserveAspectFit
         antialiasing: false
-        color: "white" // Ganti warna ikon sesuai kebutuhan
     }
 }
