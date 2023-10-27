@@ -477,7 +477,6 @@ ApplicationWindow {
                     color: "#00000000"
                     radius: 10
                     anchors.left: leftMenu.right
-                    anchors.right: setComm.left
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     clip: true
