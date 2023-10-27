@@ -200,21 +200,20 @@ ApplicationWindow {
                     anchors.topMargin: 0
                     anchors.rightMargin: 0
 
-                    SwitchDelegate {
+                    Switch {
                         text: qsTr("PM")
                         checked: false
                         font.pointSize: 14
                         height: 25
-                        anchors.top: parent.top
-                        anchors.topMargin: 5
+                        topPadding: 5
                         onClicked: animationSetComm.running = true
 
-                        contentItem: Text {
-                            rightPadding: control.indicator.width + control.spacing
-                            text: control.text
-                            font: control.font
+                        label: Text {
+                            rightPadding: indicator.width + spacing
+                            text: parent.text
+                            font: parent.font
                             opacity: enabled ? 1.0 : 0.3
-                            color: control.down ? "#AEFF00" : "#AEFF00"
+                            color: checked ? "#AEFF00" : "#AEFF00"
                             elide: Text.ElideRight
                             verticalAlignment: Text.AlignVCenter
                         }
@@ -222,27 +221,29 @@ ApplicationWindow {
                         indicator: Rectangle {
                             implicitWidth: 48
                             implicitHeight: 26
-                            x: control.width - width - control.rightPadding
+                            x: parent.width - width - rightPadding
                             y: parent.height / 2 - height / 2
                             radius: 13
-                            color: control.checked ? "#ffae00" : "transparent"
-                            border.color: control.checked ? "#ffae00" : "#cccccc"
+                            color: checked ? "#ffae00" : "transparent"
+                            border.color: checked ? "#ffae00" : "#cccccc"
 
                             Rectangle {
-                                x: control.checked ? parent.width - width : 0
+                                x: checked ? parent.width - width : 0
                                 width: 26
                                 height: 26
                                 radius: 13
-                                color: control.down ? "#c0c0c0" : "#f0f0f0"
+                                color: down ? "#c0c0c0" : "#f0f0f0"
                             }
                         }
+
                         Rectangle {
                             implicitWidth: 80
                             implicitHeight: 40
-                            visible: control.down || control.highlighted
+                            visible: down || highlighted
                             color: "#00000000"
                         }
                     }
+
                     TopBarButton {
                         id: btnMinimize
                         btnColorDefault: "#00d000"
