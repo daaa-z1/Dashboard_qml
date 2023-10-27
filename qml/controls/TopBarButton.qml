@@ -1,6 +1,3 @@
-import QtQuick 2.11
-import QtQuick.Controls 2.4
-
 Button {
     id: btnTopBar
 
@@ -26,15 +23,8 @@ Button {
         anchors.centerIn: parent
         height: 24
         width: 24
-        visible: false
         fillMode: Image.PreserveAspectFit
         antialiasing: false
-    }
-
-    ColorOverlay {
-        anchors.fill: iconBtn
-        source: iconBtn
-        color: "#000000"
-        antialiasing: false
+        color: "white" // Ganti warna ikon sesuai kebutuhan
     }
 }
