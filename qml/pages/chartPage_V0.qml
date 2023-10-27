@@ -1,73 +1,66 @@
 import QtQuick 2.11
-import QtQuick.Window 2.11
-import QtQuick.Controls 2.4
+import QtQuick.Controls 2.2
+import QtCharts 2.2
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Extras.Private 1.0
-
-
-//import QtQuick 2.0
-import QtCharts 2.1
 import "../controls"
 
-
 Item {
+    Text {
+        id: title
+        text: qsTr("Analog Measure - Volatile chart")
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 5
+        font.pixelSize: 18
+        color: "#a0a0a0"
+    }
 
-	Text {
-		id: title
-		text: qsTr("Analog Measure - Volatile chart")
-		anchors.top:  parent.top
-		anchors.horizontalCenter: parent.horizontalCenter
-		anchors.topMargin: 5
-		font.pointSize :18
-		color: "#a0a0a0"
-	}
-	//########## INI CHART VIEW ##############################
-	
-	ChartView{
-        id:cv
-        anchors{
-            top:title.bottom
-            topMargin:10
-            left:parent.left
-            right:parent.right
-            bottom:parent.bottom
-            bottomMargin:10
-            leftMargin:10
-            rightMargin:300
+    ChartView {
+        id: cv
+        anchors {
+            top: title.bottom
+            topMargin: 10
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            bottomMargin: 10
+            leftMargin: 10
+            rightMargin: 300
         }
         antialiasing: true
         theme: ChartView.ChartThemeDark
 
-        property int  timcnt: 0
-        property double  valueCH1: 0
-        property double  valueCH2: 0
-        property double  valueCH3: 0
-        property double  valueCH4: 0
-        property double  valueCH5: 0
-        property double  valueCH6: 0
-        property double  valueCH7: 0
-        property double  valueCH8: 0
+        property int timcnt: 0
+        property double valueCH1: 0
+        property double valueCH2: 0
+        property double valueCH3: 0
+        property double valueCH4: 0
+        property double valueCH5: 0
+        property double valueCH6: 0
+        property double valueCH7: 0
+        property double valueCH8: 0
 
-        ValueAxis{
-            id:xAxis
+        ValueAxis {
+            id: xAxis
             min: cv.timcnt < 50 ? 0 : cv.timcnt - 50
             max: cv.timcnt < 50 ? 50 : cv.timcnt + 1
             tickCount: 11
-            labelFormat: "%d.1"
+            labelFormat: "%.1f"
         }
 
-        ValueAxis{
-            id:yAxis
+        ValueAxis {
+            id: yAxis
             min: 0
             max: 1000
             tickCount: 1
-            labelFormat: "%d.1"
+            labelFormat: "%.1f"
         }
 
         LineSeries {
             name: "AIN 0"
-            id:lines1
+            id: lines1
             axisX: xAxis
             axisY: yAxis
             width: 2
@@ -76,7 +69,7 @@ Item {
 
         LineSeries {
             name: "AIN 1"
-            id:lines2
+            id: lines2
             axisX: xAxis
             axisY: yAxis
             width: 2
@@ -85,7 +78,7 @@ Item {
 
         LineSeries {
             name: "AIN 2"
-            id:lines3
+            id: lines3
             axisX: xAxis
             axisY: yAxis
             width: 2
@@ -94,16 +87,16 @@ Item {
 
         LineSeries {
             name: "AIN 3"
-            id:lines4
+            id: lines4
             axisX: xAxis
             axisY: yAxis
             width: 2
             color: "#ff0000"
         }
 
-LineSeries {
+        LineSeries {
             name: "AIN 4"
-            id:lines4
+            id: lines5
             axisX: xAxis
             axisY: yAxis
             width: 2
@@ -112,7 +105,7 @@ LineSeries {
 
         LineSeries {
             name: "AIN 5"
-            id:lines4
+            id: lines6
             axisX: xAxis
             axisY: yAxis
             width: 2
@@ -121,7 +114,7 @@ LineSeries {
 
         LineSeries {
             name: "AIN 6"
-            id:lines4
+            id: lines7
             axisX: xAxis
             axisY: yAxis
             width: 2
@@ -130,16 +123,15 @@ LineSeries {
 
         LineSeries {
             name: "AIN 7"
-            id:lines4
+            id: lines8
             axisX: xAxis
             axisY: yAxis
             width: 2
             color: "#ff0000"
         }
 
-       
-        Timer{
-            id:tm
+        Timer {
+            id: tm
             interval: 250
             repeat: true
             running: true
@@ -154,24 +146,19 @@ LineSeries {
                 cv.valueCH7 = backend.get_adc7()
                 cv.valueCH8 = backend.get_adc8()
 
-                lines1.append(cv.timcnt,cv.valueCH1)
-                lines2.append(cv.timcnt,cv.valueCH2)
-                lines3.append(cv.timcnt,cv.valueCH3)
-                lines4.append(cv.timcnt,cv.valueCH4)
-                lines5.append(cv.timcnt,cv.valueCH5)
-                lines6.append(cv.timcnt,cv.valueCH6)
-                lines7.append(cv.timcnt,cv.valueCH7)
-                lines8.append(cv.timcnt,cv.valueCH8)
-
+                lines1.append(cv.timcnt, cv.valueCH1)
+                lines2.append(cv.timcnt, cv.valueCH2)
+                lines3.append(cv.timcnt, cv.valueCH3)
+                lines4.append(cv.timcnt, cv.valueCH4)
+                lines5.append(cv.timcnt, cv.valueCH5)
+                lines6.append(cv.timcnt, cv.valueCH6)
+                lines7.append(cv.timcnt, cv.valueCH7)
+                lines8.append(cv.timcnt, cv.valueCH8)
             }
         }
     }
 
-	//########## END CHART VIEW ##############################
-	
-	Connections{
+    Connections {
         target: backend
-        
-	}
+    }
 }
-

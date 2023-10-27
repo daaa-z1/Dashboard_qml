@@ -1,6 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.0
+import QtQuick 2.11
+import QtQuick.Controls 1.4
 
 Item {
     id: button
@@ -8,11 +7,11 @@ Item {
     property string text: "Option: "
     property variant items: ["first"]
     property int currentSelection: 0
-    signal selectionChanged(variant selection)
 
+    signal selectionChanged(variant selection)
     signal clicked
 
-    implicitWidth: 120 //buttonText.implicitWidth + 5
+    implicitWidth: 120
     implicitHeight: buttonText.implicitHeight + 10
 
     Button {
@@ -20,28 +19,25 @@ Item {
         width: parent.width
         height: parent.height
 
-        style: ButtonStyle {
-         background: Rectangle {
+        background: Rectangle {
             radius: 10
             color: "#202020"
             border.color: "#a0a0a0"
-            border.width :2
+            border.width: 2
         }
-        
-            label: Component {
-                Text {
-                    text: button.text + button.items[currentSelection]
-                    clip: true
-                    font.bold : true
-                    font.pointSize: 10
-                    color: "#e0e0e0"
-                    wrapMode: Text.WordWrap
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    anchors.fill: parent
-                }
-            }
+
+        contentItem: Text {
+            text: button.text + button.items[currentSelection]
+            clip: true
+            font.bold: true
+            font.pixelSize: 10
+            color: "#e0e0e0"
+            wrapMode: Text.WordWrap
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.fill: parent
         }
+
         onClicked: {
             currentSelection = (currentSelection + 1) % items.length;
             selectionChanged(button.items[currentSelection]);

@@ -1,7 +1,6 @@
-import QtQuick 2.2
+import QtQuick 2.11
 
-Item
-{
+Item {
     width: 200
     height: width
 
@@ -13,14 +12,12 @@ Item
     property real regMinValue: 1
     property real regMaxValue: 50
 
-    FontLoader
-    {
+    FontLoader {
         id: fontHelveticaSemibold
-        source:"images/helvetica.ttf"
+        source: "images/helvetica.ttf"
     }
 
-    Rectangle
-    {
+    Rectangle {
         anchors.centerIn: parent
         width: parent.width
         height: width
@@ -29,18 +26,16 @@ Item
         opacity: 0.4
     }
 
-    Rectangle
-    {
-        id:ctrlVolume
+    Rectangle {
+        id: ctrlVolume
         color: "transparent"
         width: parent.width
         height: width
         radius: width * 0.5
         anchors.centerIn: parent
 
-        Text    // Titolo del parametro
-        {
-            id:paramName
+        Text {
+            id: paramName
             text: title
             color: "#CCFFFF"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -50,10 +45,7 @@ Item
             font.family: fontHelvetica.name
         }
 
-
-
-        Text    // Valore del parametro
-        {
+        Text {
             id: textValue
             text: paramValue
             color: "white"
@@ -63,8 +55,7 @@ Item
             font.family: fontHelveticaSemibold.name
         }
 
-        Text    // Unità di misura del parametro
-        {
+        Text {
             text: unit
             color: "white"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -74,8 +65,7 @@ Item
             font.family: fontHelveticaSemibold.name
         }
 
-        Canvas
-        {
+        Canvas {
             id: canvas
             anchors.centerIn: parent
             width: parent.width - 10
@@ -85,13 +75,11 @@ Item
             visible: true
 
             signal bar_event()
-            property color primaryColor: "lightgrey"//"#778899"   // Sfondo
-            property color secondaryColor: "red" //"#FFA500"//"#00ff00" // Riempimento
-
+            property color primaryColor: "lightgrey"
+            property color secondaryColor: "red"
             property real centerWidth: (width / 2)
             property real centerHeight: (height / 2)
             property real radius: (width - 15) / 2
-
             property real minimumValue: minValue
             property real maximumValue: maxValue
             property real currentValueR: paramValue
@@ -102,46 +90,30 @@ Item
             property string text2: "Meno"
 
             signal clicked()
+
             onPrimaryColorChanged: requestPaint()
             onSecondaryColorChanged: requestPaint()
             onMinimumValueChanged: requestPaint()
             onMaximumValueChanged: requestPaint()
             onCurrentValueRChanged: requestPaint()
 
-            onPaint:
-            {
+            onPaint: {
                 var ctx = getContext("2d");
                 ctx.save();
-                /*
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.beginPath();
-                ctx.lineWidth = 10;
-                ctx.arc(currentValueR);
-                ctx.fill(canvas.text);
-                */
                 ctx.beginPath();
                 ctx.lineWidth = 12;
-                ctx.lineCap = "round"
+                ctx.lineCap = "round";
                 ctx.strokeStyle = primaryColor;
-                ctx.arc(canvas.centerWidth,
-                        canvas.centerHeight,
-                        canvas.radius,
-                        startAngle,
-                        endAngle);
+                ctx.arc(canvas.centerWidth, canvas.centerHeight, canvas.radius, startAngle, endAngle);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.lineWidth = 12;
-                ctx.lineCap = "round"
+                ctx.lineCap = "round";
                 ctx.strokeStyle = canvas.secondaryColor;
-
-                ctx.arc(canvas.centerWidth,
-                        canvas.centerHeight,
-                        canvas.radius,
-                        canvas.startAngle,
-                        canvas.startAngle + canvas.angle);
-                    ctx.stroke();
-                    ctx.restore();
+                ctx.arc(canvas.centerWidth, canvas.centerHeight, canvas.radius, canvas.startAngle, canvas.startAngle + canvas.angle);
+                ctx.stroke();
+                ctx.restore();
             }
         }
     }

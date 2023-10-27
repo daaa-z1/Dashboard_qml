@@ -11,36 +11,21 @@ Button {
     property color btnColorMouseOver: "#23272E"
     property color btnColorClicked: "#0080b0"
 
-    QtObject {
-        id: internal
-        property bool clicked: false
-
-        // MOUSE OVER CHANGE COLOR
-        property var dynamicColor: btnToggle.hovered ? btnColorMouseOver : btnColorDefault
-
-        onClicked: {
-            internal.clicked = !internal.clicked;
-            btnToggle.clicked = internal.clicked;
-        }
+    background: Rectangle {
+        color: btnToggle.pressed ? btnColorClicked : (btnToggle.hovered ? btnColorMouseOver : btnColorDefault)
+        radius: 10
     }
 
     implicitWidth: 60
     implicitHeight: 60
 
-    background: Rectangle {
-        id: bgBtn
-        color: internal.dynamicColor
-        radius: 10
-
-        Image {
-            id: iconBtn
-            source: btnIconSource
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            height: 25
-            width: 25
-            fillMode: Image.PreserveAspectFit
-        }
+    Image {
+        id: iconBtn
+        source: btnIconSource
+        anchors.centerIn: parent
+        height: 25
+        width: 25
+        fillMode: Image.PreserveAspectFit
     }
 
     onClicked: {

@@ -1,53 +1,44 @@
-
 import QtQuick 2.0
 
-Item
-{
+Item {
     id: toggleswitch
-    width: background.width;
+    width: background.width
     height: background.height
 
     signal released(bool value)
     signal switched(bool on)
 
     property bool on: false
-    property bool toggleEnabled : true
+    property bool toggleEnabled: true
     property color colorbg: "#39F724"
 
     property int backgroundWidth: 70
     property int backgroundHeight: 30
 
-    function toggle()
-    {
-        if (toggleswitch.state == "on")
+    function toggle() {
+        if (toggleswitch.state === "on")
             toggleswitch.state = "off";
         else
             toggleswitch.state = "on";
         switched(toggleswitch.on);
     }
 
-    function setStatus(value)
-    {
+    function setStatus(value) {
         if (value === "on")
             toggleswitch.state = "on";
         else
             toggleswitch.state = "off";
     }
 
-    function releaseSwitch()
-    {
-        if (knob.x == 1)
-        {
-            if (toggleswitch.state == "off")
-            {
+    function releaseSwitch() {
+        if (knob.x === 1) {
+            if (toggleswitch.state === "off") {
                 toggleswitch.on = false;
                 return;
             }
         }
-        if (knob.x == 40)
-        {
-            if (toggleswitch.state == "on")
-            {
+        if (knob.x === backgroundWidth - backgroundHeight) {
+            if (toggleswitch.state === "on") {
                 toggleswitch.on = true;
                 return;
             }
@@ -55,103 +46,90 @@ Item
         toggle();
     }
 
-    Rectangle
-    {
+    Rectangle {
         id: background
-        width: backgroundWidth 
+        width: backgroundWidth
         height: backgroundHeight
-        radius: height
+        radius: backgroundHeight
         color: "#313E53"
-        y : 5
+        y: 5
 
-        MouseArea
-        {
-            anchors.fill: parent;
-            onClicked: toggle();
-            enabled:toggleEnabled
+        MouseArea {
+            anchors.fill: parent
+            onClicked: toggle()
+            enabled: toggleEnabled
         }
-            Text {
-			id: textox
-			text: "ON"
-			font.pointSize: 12
-			font.bold: true
-			anchors.left: parent.left
-			anchors.leftMargin: 10
-			anchors.verticalCenter: parent.verticalCenter
-            visible: false
-			}
-			
-			Text {
-			id: textoy
-			text: "OFF"
-			color: "#e0e0e0"
-			font.pointSize: 12
-			font.bold: true
-			anchors.right: parent.right
-			anchors.rightMargin: 10
-			anchors.verticalCenter: parent.verticalCenter
-			}
 
+        Text {
+            id: textox
+            text: "ON"
+            font.pointSize: 12
+            font.bold: true
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+            visible: false
+        }
+
+        Text {
+            id: textoy
+            text: "OFF"
+            color: "#e0e0e0"
+            font.pointSize: 12
+            font.bold: true
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+        }
     }
 
-    Rectangle
-    {
+    Rectangle {
         id: knob
-        width: backgroundHeight+10; 
-        height: backgroundHeight+10
-        radius: width
-        gradient: Gradient
-        {
+        width: backgroundHeight + 10
+        height: backgroundHeight + 10
+        radius: (backgroundHeight + 10) / 2
+        gradient: Gradient {
             GradientStop { position: 0.0; color: "#a0a0a0" }
             GradientStop { position: 1.0; color: "#e0e0e0" }
         }
 
-        MouseArea
-        {
+        MouseArea {
             anchors.fill: parent
-            enabled:toggleEnabled
-            drag.target: knob; 
-            drag.axis: Drag.XAxis; 
-            drag.minimumX: 1; 
-            drag.maximumX: backgroundWidth-backgroundHeight //40 
-            onClicked:
-            {
+            enabled: toggleEnabled
+            drag.target: knob
+            drag.axis: Drag.XAxis
+            drag.minimumX: 1
+            drag.maximumX: backgroundWidth - backgroundHeight
+            onClicked: {
                 toggle();
             }
-            onReleased:
-            {
+            onReleased: {
                 releaseSwitch();
                 toggleswitch.released(on);
             }
         }
     }
 
-    Rectangle
-    {
+    Rectangle {
         id: backgroundDisabled
-        width: 70; 
+        width: 70
         height: 30
         radius: 30
         color: "#313E53"
         opacity: 0.8
         visible: !toggleEnabled
- 
     }
 
-    states:
-    [
-        State
-        {
+    states: [
+        State {
             name: "on"
-            PropertyChanges { target: knob; x: backgroundWidth-backgroundHeight-10 }
+            PropertyChanges { target: knob; x: backgroundWidth - backgroundHeight - 10 }
             PropertyChanges { target: toggleswitch; on: true }
             PropertyChanges { target: background; color: toggleswitch.colorbg }
             PropertyChanges { target: textoy; visible: false }
             PropertyChanges { target: textox; visible: true }
-
         },
-        State
-        {
+        State {
             name: "off"
             PropertyChanges { target: knob; x: 1 }
             PropertyChanges { target: toggleswitch; on: false }
@@ -161,10 +139,7 @@ Item
         }
     ]
 
-    transitions:
-    Transition
-    {
+    transitions: Transition {
         NumberAnimation { properties: "x"; easing.type: Easing.InOutQuad; duration: 200 }
     }
 }
-

@@ -1,5 +1,6 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
+import QtQuick.Controls 2.3
+import QtGraphicalEffects 1.0
 
 Button {
     id: btnLeftMenu
@@ -18,22 +19,25 @@ Button {
 
     property color imgColorActived: "#23272E"
     property color imgColorDefault: "#00a1f1"
+    width: 250
+    height: 60
 
-    implicitWidth: 250
-    implicitHeight: 60
-
-    QtObject {
+    QtObject{
         id: internal
         // MOUSE OVER AND CLICK CHANGE COLOR
         property var dynamicColor:
-            btnLeftMenu.down ? btnColorClicked : (btnLeftMenu.hovered ? btnColorMouseOver : btnColorDefault)
+        if (btnLeftMenu.pressed){
+            btnLeftMenu.pressed ? btnColorClicked : btnColorDefault
+        } else {
+            btnLeftMenu.containsMouse ? btnColorMouseOver : btnColorDefault
+        }
     }
 
-    background: Rectangle {
+    background: Rectangle{
         id: bgBtn
         color: internal.dynamicColor
-        Rectangle {
-            anchors {
+        Rectangle{
+            anchors{
                 top: parent.top
                 left: parent.left
                 bottom: parent.bottom
@@ -43,8 +47,8 @@ Button {
             visible: isActiveMenu
         }
 
-        Rectangle {
-            anchors {
+        Rectangle{
+            anchors{
                 top: parent.top
                 right: parent.right
                 bottom: parent.bottom
@@ -55,7 +59,7 @@ Button {
         }
     }
 
-    contentItem: Item {
+    contentItem: Item{
         anchors.fill: parent
         id: content
         Image {
@@ -73,15 +77,17 @@ Button {
             antialiasing: true
         }
 
-        Rectangle {
+        ColorOverlay{
             anchors.fill: iconBtn
+            source: iconBtn
             color: isActiveMenu ? activeMenuColorRight : "#909090"
+            anchors.verticalCenter: parent.verticalCenter
             antialiasing: true
             width: iconWidth
             height: iconHeight
         }
 
-        Text {
+        Text{
             color: "#ffffff"
             text: btnLeftMenu.text
             font: btnLeftMenu.font

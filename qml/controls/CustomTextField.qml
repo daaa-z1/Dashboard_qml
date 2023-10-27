@@ -1,6 +1,6 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
-import QtGraphicalEffects 1.15
+import QtQuick.Controls 2.3
+import QtGraphicalEffects 1.0
 
 TextField {
     id: textField
@@ -14,22 +14,21 @@ TextField {
     QtObject{
         id: internal
 
-        property var dynamicColor: if(textField.focus){
-                                        textField.hovered ? colorOnFocus : colorDefault
+        property var dynamicColor: if(textField.activeFocus){
+                                        textField.containsMouse ? colorOnFocus : colorDefault
                                    }else{
-                                       textField.hovered ? colorMouseOver : colorDefault
+                                       textField.containsMouse ? colorMouseOver : colorDefault
                                    }
     }
 
-    implicitWidth: 300
-    implicitHeight: 30
+    width: 300
+    height: 30
     placeholderText: qsTr("Type something")
     color: "#ffffff"
     background: Rectangle {
         color: internal.dynamicColor
         radius: 10
     }
-
 
     selectByMouse: true
     selectedTextColor: "#FFFFFF"

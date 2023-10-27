@@ -1,29 +1,29 @@
 import QtQuick 2.11
 import QtQuick.Window 2.11
 import QtQuick.Controls 2.4
+import QtQuick.Layouts 1.2
 
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Extras 1.4
 import QtQuick.Extras.Private 1.0
 
 import QtGraphicalEffects 1.0
-import "controls" 
 import QtQuick.Dialogs 1.3
+import "controls" 
 
-Window {
-    id: mainWindow
+ApplicationWindow {
+    visible: true
     width: 1320
     height: 720
     minimumWidth: 760
     minimumHeight: 520
-    visible: true
     color: "#00000000"
-    title: qsTr("Dash Control ")
+    title: qsTr("Dash Control")
 
     // Remove title bar
     flags: Qt.Window | Qt.FramelessWindowHint
 
-    // Propeties
+    // Properties
     property int windowStatus: 0
     property int windowMargin: 10
 
@@ -32,8 +32,6 @@ Window {
 
     // Internal functions
     QtObject {
-        id: internal
-
         function resetResizeBorders() {
             // Resize visibility
             resizeLeft.visible = true
@@ -43,9 +41,8 @@ Window {
         }
 
         function maximizeRestore() {
-            if (windowStatus == 0) {
-                //mainWindow.showMaximized() // standar windows
-                mainWindow.showFullScreen() // fullscreen window
+            if (windowStatus === 0) {
+                mainWindow.showNormal()
                 windowStatus = 1
                 windowMargin = 0
                 // Resize visibility
@@ -65,7 +62,7 @@ Window {
         }
 
         function ifMaximizedWindowRestore() {
-            if (windowStatus == 1) {
+            if (windowStatus === 1) {
                 mainWindow.showNormal()
                 windowStatus = 0
                 windowMargin = 10
@@ -85,123 +82,85 @@ Window {
     }
 
     Rectangle {
-        id: bg
         color: "#2c313c"
         radius: 10
         border.color: "#383e4c"
         border.width: 1
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.topMargin: 5
-        anchors.bottomMargin: 5
-        anchors.leftMargin: 5
-        anchors.rightMargin: 5
+        anchors.fill: parent
         z: 1
 
         Rectangle {
-            id: appContainer
             color: "#00000000"
             radius: 10
             anchors.fill: parent
-            anchors.rightMargin: 1
-            anchors.leftMargin: 1
-            anchors.bottomMargin: 1
-            anchors.topMargin: 1
 
             Rectangle {
-                id: topBar
                 height: 60
                 color: "#1c1d20"
                 radius: 10
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.rightMargin: 0
-                anchors.leftMargin: 0
-                anchors.topMargin: 0
+                anchors.fill: parent
 
                 ToggleButton {
                     onClicked: animationMenu.running = true
                 }
 
                 Rectangle {
-                    id: topBarDescription
                     y: 28
                     height: 60
                     color: "#282c34"
                     radius: 5
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
+                    anchors.fill: parent
                     anchors.rightMargin: 0
                     anchors.leftMargin: 60
                     anchors.bottomMargin: 0
 
                     Label {
-                        id: labelTopInfo
                         color: "#16FF00"
                         text: qsTr("MONITOR SYS FOR TEST BENCH")
                         font.bold: true
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.top: parent.top
+                        anchors.fill: parent
                         verticalAlignment: Text.AlignVCenter
                         anchors.rightMargin: 300
-                        anchors.topMargin: 40
                         anchors.leftMargin: 10
                     }
 
                     Label {
-                        id: labelDateInfo
                         color: "#B0B0B0"
                         text: qsTr("DATE: ")
                         font.bold: true
                         anchors.right: parent.right
-                        anchors.top: parent.top
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         anchors.rightMargin: 150
-                        anchors.topMargin: 40
                     }
 
                     Label {
-                        id: labelRightInfo
                         color: "#B0B0B0"
-                        text: qsTr("| WELLCOME")
+                        text: qsTr("| WELCOME")
                         anchors.right: parent.right
                         font.bold: true
-                        anchors.top: parent.top
                         horizontalAlignment: Text.AlignRight
                         verticalAlignment: Text.AlignVCenter
                         anchors.rightMargin: 10
-                        anchors.topMargin: 40
                     }
                 }
 
                 Rectangle {
-                    id: titleBar
                     height: 35
                     color: "#00000000"
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
+                    anchors.fill: parent
                     anchors.rightMargin: 105
                     anchors.leftMargin: 70
                     anchors.topMargin: 0
 
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.SizeAllCursor
-                        onClicked: {
+                    DragHandler {
+                        onActiveChanged: if (active) {
                             mainWindow.startSystemMove()
                             internal.ifMaximizedWindowRestore()
                         }
                     }
 
                     Image {
-                        id: iconApp
                         width: 32
                         height: 32
                         anchors.left: parent.left
@@ -215,7 +174,6 @@ Window {
                     }
 
                     Label {
-                        id: label
                         color: "#3E00FF"
                         text: qsTr("TEST BENCH EXPERT by TSH corp")
                         anchors.left: iconApp.right
@@ -230,7 +188,6 @@ Window {
                 }
 
                 Row {
-                    id: rowBtns
                     x: 872
                     width: 220
                     height: 35
@@ -239,9 +196,7 @@ Window {
                     anchors.topMargin: 0
                     anchors.rightMargin: 0
 
-                    ///
                     SwitchDelegate {
-                        id: control
                         text: qsTr("PM")
                         checked: false
                         font.pointSize: 14
@@ -277,15 +232,13 @@ Window {
                                 color: control.down ? "#c0c0c0" : "#f0f0f0"
                             }
                         }
-                        background: Rectangle {
+                        Rectangle {
                             implicitWidth: 80
                             implicitHeight: 40
                             visible: control.down || control.highlighted
                             color: "#00000000"
                         }
                     }
-
-                    ///
                     TopBarButton {
                         id: btnMinimize
                         btnColorDefault: "#00d000"
@@ -314,7 +267,6 @@ Window {
                     }
                 }
             }
-
             Rectangle {
                 id: content
                 color: "#00000000"
@@ -341,10 +293,7 @@ Window {
                         id: animationMenu
                         target: leftMenu
                         property: "width"
-                        to: if (leftMenu.width == 60)
-                                return 180
-                            else
-                                return 60
+                        to: leftMenu.width === 60 ? 180 : 60
                         duration: 500
                         easing.type: Easing.InOutQuint
                     }
@@ -368,7 +317,7 @@ Window {
                             font.bold: true
                             font.pointSize: 10
                             btnIconSource: "../images/svg_images/cil-touch-app.svg"
-                            //isActiveMenu: true
+
                             onClicked: {
                                 btnHome.isActiveMenu = true
                                 btnOpen.isActiveMenu = false
@@ -378,8 +327,7 @@ Window {
                                 btnOthers.isActiveMenu = false
                                 btnSettings.isActiveMenu = false
                                 backend.setPage("OUTPUTS")
-                                stackView.push(Qt.resolvedUrl(
-                                                   "pages/outputPage.qml"))
+                                stackView.push(Qt.resolvedUrl("pages/outputPage.qml"))
                             }
                         }
 
@@ -400,8 +348,7 @@ Window {
                                 btnOthers.isActiveMenu = false
                                 btnSettings.isActiveMenu = false
                                 backend.setPage("INPUTS")
-                                stackView.push(Qt.resolvedUrl(
-                                                   "pages/inputPage.qml"))
+                                stackView.push(Qt.resolvedUrl("pages/inputPage.qml"))
                             }
                         }
 
@@ -422,8 +369,7 @@ Window {
                                 btnOthers.isActiveMenu = false
                                 btnSettings.isActiveMenu = false
                                 backend.setPage("GAUGES")
-                                stackView.push(Qt.resolvedUrl(
-                                                   "pages/gaugePage.qml"))
+                                stackView.push(Qt.resolvedUrl("pages/gaugePage.qml"))
                             }
                         }
                         LeftMenuBtn {
@@ -443,8 +389,7 @@ Window {
                                 btnChart.isActiveMenu = false
                                 btnOthers.isActiveMenu = false
                                 backend.setPage("PWM OUT")
-                                stackView.push(Qt.resolvedUrl(
-                                                   "pages/pwmPage.qml"))
+                                stackView.push(Qt.resolvedUrl("pages/pwmPage.qml"))
                             }
                         }
                         LeftMenuBtn {
@@ -464,8 +409,7 @@ Window {
                                 btnChart.isActiveMenu = true
                                 btnOthers.isActiveMenu = false
                                 backend.setPage("CHARTS")
-                                stackView.push(Qt.resolvedUrl(
-                                                   "pages/chartPage.qml"))
+                                stackView.push(Qt.resolvedUrl("pages/chartPage.qml"))
                             }
                         }
                         LeftMenuBtn {
@@ -485,12 +429,10 @@ Window {
                                 btnChart.isActiveMenu = false
                                 btnOthers.isActiveMenu = true
                                 backend.setPage("BONUS")
-                                stackView.push(Qt.resolvedUrl(
-                                                   "pages/bonusPage.qml"))
+                                stackView.push(Qt.resolvedUrl("pages/bonusPage.qml"))
                             }
                         }
                     }
-
                     LeftMenuBtn {
                         id: btnSettings
                         width: leftMenu.width
@@ -509,8 +451,7 @@ Window {
                             btnOthers.isActiveMenu = false
                             btnSettings.isActiveMenu = true
                             backend.setPage("SETTINGS")
-                            stackView.push(Qt.resolvedUrl(
-                                               "pages/settingsPage.qml"))
+                            stackView.push(Qt.resolvedUrl("pages/settingsPage.qml"))
                         }
                     }
                 }
@@ -595,11 +536,11 @@ Window {
                         anchors.rightMargin: 0
                         cursorShape: Qt.SizeFDiagCursor
 
-                        MouseArea {
-                            id: resizeMouseArea
-                            anchors.fill: parent
-                            onClicked: {
-                                mainWindow.startSystemResize(Qt.RightEdge | Qt.BottomEdge);
+                        DragHandler {
+                            target: null
+                            onActiveChanged: if (active) {
+                                mainWindow.startSystemResize(
+                                    Qt.RightEdge | Qt.BottomEdge)
                             }
                         }
 
@@ -607,18 +548,17 @@ Window {
                             id: resizeImage
                             width: 16
                             height: 16
-                            anchors.left: parent.left
-                            anchors.top: parent.top
+                            anchors.fill: parent
                             source: "../images/svg_images/resize_icon.svg"
-                            sourceSize.width: 16
+                            anchors.leftMargin: 5
+                            anchors.topMargin: 5
                             sourceSize.height: 16
+                            sourceSize.width: 16
                             fillMode: Image.PreserveAspectFit
                             antialiasing: false
                         }
                     }
-
                 }
-
                 Rectangle {
                     id: setComm
                     x: 851
@@ -629,20 +569,19 @@ Window {
                     anchors.bottom: parent.bottom
                     anchors.rightMargin: 0
                     anchors.bottomMargin: 25
-                    anchors.topMargin: 0
 
                     PropertyAnimation {
                         id: animationSetComm
                         target: setComm
                         property: "width"
                         to: if (setComm.width == 2)
-                                return 180
-                            else
-                                return 2
+                            return 180
+                        else
+                            return 2
                         duration: 500
                         easing.type: Easing.InOutQuint
                     }
-                    ///
+
                     SwitchDelegate {
                         id: connectComm
                         text: qsTr("Init Com")
@@ -653,18 +592,17 @@ Window {
                         anchors.top: parent.top
                         anchors.leftMargin: 10
                         anchors.topMargin: 180
+
                         onCheckedChanged: {
-						if (checked) {
-							serial_portX.enabled = false
-							baud_rateX.enabled = false
-							//serialPortDetectTimer.running = false
-							backend.setPortCom(serial_portX.nameserial_port,baud_rateX.portbaud_rate)
-						} else {
-							serial_portX.enabled = true
-							baud_rateX.enabled = true
-							backend.closePort(1)
-							//serialPortDetectTimer.running = true
-							}
+                            if (checked) {
+                                serial_portX.enabled = false
+                                baud_rateX.enabled = false
+                                backend.setPortCom(serial_portX.nameserial_port, baud_rateX.portbaud_rate)
+                            } else {
+                                serial_portX.enabled = true
+                                baud_rateX.enabled = true
+                                backend.closePort(1)
+                            }
                         }
 
                         contentItem: Text {
@@ -694,6 +632,7 @@ Window {
                                 color: connectComm.down ? "#c0c0c0" : "#f0f0f0"
                             }
                         }
+
                         background: Rectangle {
                             implicitWidth: 80
                             implicitHeight: 40
@@ -701,7 +640,7 @@ Window {
                             color: "#00000000"
                         }
                     }
-                    ///
+
                     ComboBox {
                         id: serial_portX
                         width: 150
@@ -713,6 +652,7 @@ Window {
                         font.pointSize: 10
                         font.bold: true
                         property var nameserial_port: "COM_X"
+
                         states: State {
                             name: "changePort"
                             PropertyChanges {
@@ -720,6 +660,7 @@ Window {
                                 nameserial_port: model[currentIndex]
                             }
                         }
+
                         onCurrentIndexChanged: {
                             serial_portX.state = "changePort"
                         }
@@ -736,7 +677,7 @@ Window {
                         font.bold: true
                         font.pointSize: 10
                     }
-                    ///
+
                     ComboBox {
                         id: baud_rateX
                         width: 150
@@ -750,6 +691,7 @@ Window {
                         font.bold: true
 
                         property var portbaud_rate: "4800"
+
                         states: State {
                             name: "changeSpeed"
                             PropertyChanges {
@@ -757,24 +699,16 @@ Window {
                                 portbaud_rate: model[currentIndex]
                             }
                         }
+
                         onCurrentIndexChanged: {
                             baud_rateX.state = "changeSpeed"
-                            //console.debug("test "+portbaud_rate)
-                        }
-                        onActivated: {
-
-                            //console.debug("hi SPEED actived "+ currentText)
-                        }
-                        Component.onCompleted: {
-
-                            //console.debug("hi SPEED completed " + baud_rate.portbaud_rate )
                         }
                     }
 
                     Label {
                         id: label2
                         color: "#d0d0d0"
-                        text: qsTr("SPEED ")
+                        text: qsTr("SPEED")
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.leftMargin: 10
@@ -795,7 +729,6 @@ Window {
                         font.pointSize: 10
                     }
 
-                    ///
                     Rectangle {
                         id: rectangle
                         height: 200
@@ -807,6 +740,7 @@ Window {
                         anchors.rightMargin: 0
                         anchors.leftMargin: 10
                         anchors.topMargin: 260
+
                         ListView {
                             id: listExample
                             width: 150
@@ -819,10 +753,12 @@ Window {
                             anchors.leftMargin: 0
                             anchors.topMargin: 0
                             model: personModel
+
                             delegate: Rectangle {
                                 color: "#00000000"
                                 width: listExample.width
                                 height: 50
+
                                 Text {
                                     color: "#ffa500"
                                     font.pointSize: 8
@@ -832,7 +768,9 @@ Window {
                                     wrapMode: Text.WordWrap
                                 }
                             }
+
                             highlightMoveDuration: 0
+
                             Component.onCompleted: {
                                 var dataport = backend.personsList()
                             }
@@ -840,12 +778,14 @@ Window {
 
                         ListModel {
                             id: personModel
+
                             Component.onCompleted: {
                                 var dataportx = backend.personsList()
                                 for (var k in dataportx) {
                                     append(createListElementx(k))
                                 }
                             }
+
                             function createListElementx(k) {
                                 return {
                                     "name": backend.personsList()[k]
@@ -853,13 +793,10 @@ Window {
                             }
                         }
                     }
-
-                    ///
                 }
             }
         }
     }
-
     DropShadow {
         anchors.fill: bg
         horizontalOffset: 0
@@ -882,11 +819,10 @@ Window {
         anchors.topMargin: 10
         cursorShape: Qt.SizeHorCursor
 
-        MouseArea {
-            id: resizeLeftMouseArea
-            anchors.fill: parent
-            onClicked: {
-                mainWindow.startSystemResize(Qt.LeftEdge);
+        DragHandler {
+            target: null
+            onActiveChanged: if (active) {
+                mainWindow.startSystemResize(Qt.LeftEdge)
             }
         }
     }
@@ -902,15 +838,13 @@ Window {
         anchors.topMargin: 10
         cursorShape: Qt.SizeHorCursor
 
-        MouseArea {
-            id: resizeRightMouseArea
-            anchors.fill: parent
-            onClicked: {
-                mainWindow.startSystemResize(Qt.RightEdge);
+        DragHandler {
+            target: null
+            onActiveChanged: if (active) {
+                mainWindow.startSystemResize(Qt.RightEdge)
             }
         }
     }
-
 
     MouseArea {
         id: resizeBottom
@@ -923,11 +857,10 @@ Window {
         anchors.bottomMargin: 0
         cursorShape: Qt.SizeVerCursor
 
-        MouseArea {
-            id: resizeBottomMouseArea
-            anchors.fill: parent
-            onClicked: {
-                mainWindow.startSystemResize(Qt.BottomEdge);
+        DragHandler {
+            target: null
+            onActiveChanged: if (active) {
+                mainWindow.startSystemResize(Qt.BottomEdge)
             }
         }
     }
